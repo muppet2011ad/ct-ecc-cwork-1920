@@ -5,6 +5,25 @@ def decimalToVector(i, l):
     return padding + binarray
 
 
+def repetitionEncoder(m, n):
+    return m * n
+
+
+def repetitionDecoder(v):
+    votes_0 = 0
+    votes_1 = 0
+    for bit in v:
+        if bit == 0:
+            votes_0 += 1
+        else:
+            votes_1 += 1
+    if votes_0 > votes_1:
+        return [0]
+    elif votes_0 < votes_1:
+        return [1]
+    else:
+        return []
+
 # function HammingG
 # input: a number r
 # output: G, the generator matrix of the (2^r-1,2^r-r-1) Hamming code
