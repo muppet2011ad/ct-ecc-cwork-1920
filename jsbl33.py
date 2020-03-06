@@ -62,3 +62,23 @@ def hammingGeneratorMatrix(r):
     G = [list(i) for i in zip(*G)]
 
     return G
+
+
+def message(a):
+    pass
+
+
+def hammingEncoder(a):
+    pass
+
+
+def hammingDecoder(a):
+    pass
+
+
+def messageFromCodeword(a):
+    pass
+
+
+def dataFromMessage(a):
+    pass
