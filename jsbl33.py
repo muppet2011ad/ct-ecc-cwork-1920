@@ -1,3 +1,13 @@
+def multMatrix(mat1, mat2):
+    if len(mat1[0]) != len(mat2):
+        return []
+    result = [[0 for j in range(len(mat2[0]))] for i in range(len(mat1))]
+    for i in range(len(mat1)):
+        for j in range(len(mat2[0])):
+            for k in range(len(mat2)):
+                result[i][j] += mat1[i][k] * mat2[k][j]
+    return result
+
 def decimalToVector(i, l):
     vect = []
     while len(vect) < l:
@@ -7,7 +17,6 @@ def decimalToVector(i, l):
             vect.append(1)
         i = i // 2
     return vect[::-1]
-
 
 def repetitionEncoder(m, n):
     return m * n
@@ -69,11 +78,27 @@ def hammingGeneratorMatrix(r):
 
 
 def message(a):
-    pass
+    r = 2
+    while 2 ** r - 2 * r - 1 < len(a):
+        r += 1
+    k = 2 ** r - r - 1
+    body = decimalToVector(len(a), r) + a
+    padding = (k - len(body)) * [0]
+    return body + padding
 
 
-def hammingEncoder(a):
-    pass
+def hammingEncoder(m):
+    # Find r
+    r = 2
+    while 2 ** r - r - 1 != len(m):
+        if len(m) < 2 ** r - r - 1:
+            return []
+        r += 1
+    # Get generator matrix
+    G = hammingGeneratorMatrix(r)
+    # Multiply matrices to get encoded message
+    c = multMatrix([m], G)
+    return c[0]
 
 
 def hammingDecoder(a):
