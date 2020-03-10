@@ -1,12 +1,30 @@
 def multMatrix(mat1, mat2):
     if len(mat1[0]) != len(mat2):
-        return []
+        raise ValueError
     result = [[0 for j in range(len(mat2[0]))] for i in range(len(mat1))]
     for i in range(len(mat1)):
         for j in range(len(mat2[0])):
             for k in range(len(mat2)):
                 result[i][j] += mat1[i][k] * mat2[k][j]
+                if result[i][j] == 2:
+                    result[i][j] = 0
     return result
+
+
+def transposeMatrix(mat):
+    return [[mat[i][j] for i in range(len(mat))] for j in range(len(mat[0]))]
+
+
+def getHT(r):
+    k = 2 ** r - 1
+    return [decimalToVector(i, r) for i in range(1, k + 1)]
+
+
+def vectorToDecimal(v):
+    total = 0
+    for i in range(len(v)):
+        total += v[::-1][i] * 2 ** i
+    return total
 
 def decimalToVector(i, l):
     vect = []
@@ -101,8 +119,20 @@ def hammingEncoder(m):
     return c[0]
 
 
-def hammingDecoder(a):
-    pass
+def hammingDecoder(v):
+    r = 2
+    while 2 ** r - 1 != len(v):
+        if len(v) < 2 ** r - 1:
+            return []
+        r += 1
+    HT = getHT(r)
+    col_i = multMatrix([v], HT)[0]
+    i = vectorToDecimal(col_i) - 1
+    v[i] += 1
+    if v[i] == 2:
+        v[i] = 0
+    return v
+
 
 
 def messageFromCodeword(a):
