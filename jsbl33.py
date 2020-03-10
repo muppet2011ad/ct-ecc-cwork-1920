@@ -1,8 +1,12 @@
 def decimalToVector(i, l):
-    binary = bin(i)
-    binarray = [int(x) for x in binary[2:]]
-    padding = [0] * (l - len(binarray))
-    return padding + binarray
+    vect = []
+    while len(vect) < l:
+        if i % 2 == 0:
+            vect.append(0)
+        else:
+            vect.append(1)
+        i = i // 2
+    return vect[::-1]
 
 
 def repetitionEncoder(m, n):
