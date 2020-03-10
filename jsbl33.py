@@ -134,9 +134,15 @@ def hammingDecoder(v):
     return v
 
 
-
-def messageFromCodeword(a):
-    pass
+def messageFromCodeword(c):
+    r = 2
+    while 2 ** r - 1 != len(c):
+        if len(c) < 2 ** r - 1:
+            return []
+        r += 1
+    toRemove = [2 ** i - 1 for i in range(r)]
+    m = [c[i] for i in range(len(c)) if i not in toRemove]
+    return m
 
 
 def dataFromMessage(a):
