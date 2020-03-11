@@ -145,5 +145,14 @@ def messageFromCodeword(c):
     return m
 
 
-def dataFromMessage(a):
-    pass
+def dataFromMessage(m):
+    r = 2
+    while 2 ** r - r - 1 != len(m):
+        if len(m) < 2 ** r - 1:
+            return []
+        r += 1
+    l = vectorToDecimal(m[:r])
+    if l > len(m) - r:
+        return []
+    a = m[r:r + l]
+    return a
